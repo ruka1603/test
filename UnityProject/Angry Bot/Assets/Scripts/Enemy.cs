@@ -135,5 +135,8 @@ public class Enemy : MonoBehaviour
         guiPivot.SetActive(false);
         audioSrc.clip = deathSound;
         audioSrc.Play();
+
+        PlayManager pm = GameObject.Find("PlayManager").GetComponent<PlayManager>();
+        pm.EnemyDie();
     }
 }

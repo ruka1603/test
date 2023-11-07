@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
         }
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
-    // ¾Ö´Ï¸ŞÀÌ¼Ç Ã³¸®
+    // ì• ë‹ˆë©”ì´ì…˜ ì²˜ë¦¬
     void AnimationUpdate()
     {
         switch (playerState)
@@ -159,6 +159,9 @@ public class PlayerController : MonoBehaviour
         { 
             speed = 0;
             playerState = PlayerState.Dead;
+
+            PlayManager pm = GameObject.Find("PlayManager").GetComponent<PlayManager>();
+            pm.GameOver();
         }
     }
 }
