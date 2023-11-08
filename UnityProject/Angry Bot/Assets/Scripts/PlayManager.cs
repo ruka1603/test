@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class PlayManager : MonoBehaviour
@@ -16,10 +17,14 @@ public class PlayManager : MonoBehaviour
     public Text finalMessage;
     public Text finalScoreLabel;
 
+    public Text playerName;
+
     private void Start()
     {
         enemyLabel.text = string.Format("Enemy : {0}", enemyCount);
         timeLabel.text = string.Format("Time : {0}", limitTime);
+
+        playerName.text = PlayerPrefs.GetString("UserName");
     }
 
     private void Update()
@@ -65,6 +70,7 @@ public class PlayManager : MonoBehaviour
 
             pc.playerState = PlayerState.Dead;
 
+            BestChack(score);
         }
     }
     public void GameOver()
@@ -78,9 +84,11 @@ public class PlayManager : MonoBehaviour
             finalScoreLabel.text = string.Format("{0:N0}", score);
             finalGUI.SetActive(true);
 
-            PlayerController pc = 
+            PlayerController pc =
                 GameObject.Find("PlayerController").GetComponent<PlayerController>();
             pc.playerState = PlayerState.Dead;
+
+            BestChack(score);
         }
     }
 
@@ -94,5 +102,17 @@ public class PlayManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("Title");
+    }
+
+    private void BestChack(float score)
+    {
+        float bestScore = PlayerPrefs.GetFloat("BestScore");
+
+        if (score > bestScore)
+        {
+            PlayerPrefs.SetFloat("BestScore", score);
+            PlayerPrefs.SetString("BestPlayer", PlayerPrefs.GetString("UserName"));
+            PlayerPrefs.Save();
+        }
     }
 }
