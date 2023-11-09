@@ -11,6 +11,8 @@ public enum PlayerState
     Run,
     Attack,
     Dead,
+    Right,
+    Left,
 }
 
 public class PlayerController : MonoBehaviour
@@ -119,6 +121,13 @@ public class PlayerController : MonoBehaviour
             case PlayerState.Dead:
                 anim.CrossFade(idleAni.name, 0.2f);
                 break;
+            case PlayerState.Right:
+                anim.CrossFade(rightAni.name, 0.2f);
+                break;
+            case PlayerState.Left:
+                anim.CrossFade(leftAni.name, 0.2f);
+                break;
+
         }
     }
 
