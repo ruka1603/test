@@ -49,6 +49,8 @@ public class PlayManager : MonoBehaviour
         enemyCount--;
         enemyLabel.text = string.Format("Enemy : {0}", enemyCount);
 
+        limitTime += 5;
+
         if (enemyCount <= 0)
             Clear();
     }
@@ -107,11 +109,26 @@ public class PlayManager : MonoBehaviour
     private void BestChack(float score)
     {
         float bestScore = PlayerPrefs.GetFloat("BestScore");
+        float secondScore = PlayerPrefs.GetFloat("SecondScore");
+        float thirdScore = PlayerPrefs.GetFloat("ThirdScore");
+
 
         if (score > bestScore)
         {
             PlayerPrefs.SetFloat("BestScore", score);
             PlayerPrefs.SetString("BestPlayer", PlayerPrefs.GetString("UserName"));
+            PlayerPrefs.Save();
+        }
+        if (score < bestScore && score > thirdScore)
+        {
+            PlayerPrefs.SetFloat("SecondScore", score);
+            PlayerPrefs.SetString("SecondPlayer", PlayerPrefs.GetString("UserName"));
+            PlayerPrefs.Save();
+        }
+        if (score < secondScore)
+        {
+            PlayerPrefs.SetFloat("ThirdScore", score);
+            PlayerPrefs.SetString("ThirdPlayer", PlayerPrefs.GetString("UserName"));
             PlayerPrefs.Save();
         }
     }

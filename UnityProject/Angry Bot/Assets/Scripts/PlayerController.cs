@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     public AnimationClip idleAni;
     public AnimationClip walkAni;
     public AnimationClip runAni;
+    public AnimationClip rightAni;
+    public AnimationClip leftAni;
 
     private AudioSource audioSrc;
     public AudioClip shotSound;
